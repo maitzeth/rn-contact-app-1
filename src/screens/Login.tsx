@@ -16,6 +16,7 @@ export function LoginScreen({navigation}: LoginScreenProps) {
     console.log(data);
     console.log('its happening... everybody stay f.. calm!');
   };
+
   // return (
   //   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
   //     <ActivityIndicator />
@@ -31,7 +32,7 @@ export function LoginScreen({navigation}: LoginScreenProps) {
         placeholder="Enter your password"
         secureTextEntry
       />
-      <Button title="Sign In" onPress={handleSubmit(onSignIn)} />
+      <Button text="Log In" onPress={handleSubmit(onSignIn)} />
     </AppContainer>
   );
 }

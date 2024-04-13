@@ -1,11 +1,15 @@
 import * as React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {Navigation} from './src/navigation';
+import {ThemeProvider} from 'styled-components';
+import {theme} from './src/utils/theme';
 
 function App() {
   return (
     <SafeAreaView style={styles.root}>
-      <Navigation />
+      <ThemeProvider theme={theme.theme}>
+        <Navigation />
+      </ThemeProvider>
     </SafeAreaView>
   );
 }
