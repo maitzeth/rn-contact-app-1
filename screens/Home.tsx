@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Button} from 'react-native';
 
-export function HomeScreen() {
+export function HomeScreen({ navigation }: any) {
   return (
     <View style={styles.viewStyle}>
       <Text style={styles.headingStyle}>This is home</Text>
+      <Button title="Details" onPress={() => navigation.navigate('Details')} />
     </View>
   );
 }
