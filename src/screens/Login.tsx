@@ -1,14 +1,21 @@
 import * as React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackParamList} from '../types';
+import {Button, Input, AppContainer} from '../components';
 // ScreenComponentType<ParamListBase, "Login"> | undefined
+
+import {useForm} from 'react-hook-form';
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'LoginScreen'>;
 // interface Props extends NativeStackHeaderProps {}
 
 export function LoginScreen({navigation}: LoginScreenProps) {
-  console.log(navigation);
+  const {control, handleSubmit} = useForm();
+
+  const onSignIn = (data: any) => {
+    console.log(data);
+    console.log('its happening... everybody stay f.. calm!');
+  };
   // return (
   //   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
   //     <ActivityIndicator />
@@ -16,21 +23,15 @@ export function LoginScreen({navigation}: LoginScreenProps) {
   // );
 
   return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.headingStyle}>This is login</Text>
-      {/* <Button title="Home" onPress={() => navigation.navigate('Home')} /> */}
-    </View>
+    <AppContainer>
+      <Input name="email" control={control} placeholder="Enter your email" />
+      <Input
+        name="password"
+        control={control}
+        placeholder="Enter your password"
+        secureTextEntry
+      />
+      <Button title="Sign In" onPress={handleSubmit(onSignIn)} />
+    </AppContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
-    flex: 1,
-  },
-  headingStyle: {
-    fontSize: 30,
-    color: 'black',
-    textAlign: 'center',
-  },
-});
