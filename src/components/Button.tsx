@@ -1,8 +1,14 @@
 import React from 'react';
 import {styled} from 'styled-components/native';
 import {TypeTheme} from '../types';
+import type {GestureResponderEvent} from 'react-native';
 
-export const Button = ({onPress, text}: any) => {
+type Props = {
+  onPress: (event: GestureResponderEvent) => void;
+  text: string;
+};
+
+export const Button = ({onPress, text}: Props) => {
   return (
     <StyledButton
       onPress={onPress}

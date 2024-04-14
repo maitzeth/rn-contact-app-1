@@ -1,8 +1,17 @@
 import React from 'react';
 import {TextInput} from 'react-native';
 import {Controller} from 'react-hook-form';
+import type {UseControllerProps} from 'react-hook-form';
 import {styled} from 'styled-components/native';
 import {TypeTheme} from '../types';
+
+type Props = {
+  control: UseControllerProps['control'];
+  name: string;
+  placeholder: string;
+  secureTextEntry?: boolean;
+  rules: UseControllerProps['rules'];
+};
 
 export const Input = ({
   control,
@@ -10,7 +19,7 @@ export const Input = ({
   placeholder,
   secureTextEntry,
   rules = {},
-}: any) => {
+}: Props) => {
   return (
     <Controller
       control={control}
