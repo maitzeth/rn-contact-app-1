@@ -5,26 +5,26 @@ import {LoginScreen} from '../screens/Login';
 import {StackParamList} from '../types';
 import {HomeScreen} from '../screens/Home';
 import {DetailsScreen} from '../screens/Details';
-import {api, TypeAPI} from '../api';
 import {View, ActivityIndicator} from 'react-native';
+import {useAuthState} from '../store/userStore';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Navigation = () => {
-  const [user, setUser] = React.useState<TypeAPI | undefined | null>(undefined);
+  const {user, checkAuth, setUser} = useAuthState();
 
-  const checkUser = async () => {
+  const checkUser = React.useCallback(async () => {
     try {
-      const authResponse = await api.checkAuth();
+      const authResponse = await checkAuth();
       setUser(authResponse);
     } catch (e) {
       setUser(null);
     }
-  };
+  }, [checkAuth, setUser]);
 
   React.useEffect(() => {
     checkUser();
-  }, []);
+  }, [checkUser, user]);
 
   if (user === undefined) {
     return (

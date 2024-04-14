@@ -7,3 +7,8 @@ export type StackParamList = {
   HomeScreen: {};
   DetailsScreen: {};
 };
+
+export type User = {
+  email: string;
+  fullName: string;
+};

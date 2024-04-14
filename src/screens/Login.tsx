@@ -7,7 +7,7 @@ import {styled} from 'styled-components/native';
 import {AppContainer, Button, Input} from '../components';
 import {StackParamList, TypeTheme} from '../types';
 import {EMAIL_REGEX} from '../utils/constants';
-import {api} from '../api';
+import {useAuthState} from '../store/userStore';
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'LoginScreen'>;
 
@@ -18,11 +18,12 @@ type SignInData = {
 
 export function LoginScreen({}: LoginScreenProps) {
   const {control, handleSubmit} = useForm();
+  const {signIn} = useAuthState();
 
   const onSignIn = async (data: FieldElement) => {
     const {email, password} = data as SignInData;
     try {
-      await api.signIn({
+      signIn({
         email,
         password,
       });

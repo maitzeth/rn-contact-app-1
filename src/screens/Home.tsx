@@ -1,11 +1,13 @@
 import * as React from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {Button, AppContainer} from '../components';
-import {api} from '../api';
+import {useAuthState} from '../store/userStore';
 
 export function HomeScreen() {
+  const {logout} = useAuthState();
+
   const handlePress = async () => {
-    await api.logout();
+    await logout();
   };
 
   return (
