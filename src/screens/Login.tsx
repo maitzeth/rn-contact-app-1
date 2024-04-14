@@ -1,26 +1,41 @@
-import * as React from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {StackParamList, TypeTheme} from '../types';
-import {Button, Input, AppContainer} from '../components';
-import {EMAIL_REGEX} from '../utils/constants';
+import * as React from 'react';
+import type {FieldElement} from 'react-hook-form';
 import {useForm} from 'react-hook-form';
+import {Alert} from 'react-native';
 import {styled} from 'styled-components/native';
+import {AppContainer, Button, Input} from '../components';
+import {StackParamList, TypeTheme} from '../types';
+import {EMAIL_REGEX} from '../utils/constants';
+import {api} from '../api';
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'LoginScreen'>;
 
-export function LoginScreen({navigation}: LoginScreenProps) {
+type SignInData = {
+  email: string;
+  password: string;
+};
+
+export function LoginScreen({}: LoginScreenProps) {
   const {control, handleSubmit} = useForm();
 
-  const onSignIn = (data: any) => {
-    console.log(data, navigation);
-    console.log('its happening... everybody stay f.. calm!');
-  };
+  const onSignIn = async (data: FieldElement) => {
+    const {email, password} = data as SignInData;
+    try {
+      await api.signIn({
+        email,
+        password,
+      });
 
-  // return (
-  //   <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-  //     <ActivityIndicator />
-  //   </View>
-  // );
+      // navigation.navigate('HomeScreen');
+    } catch (e) {
+      if (e instanceof Error) {
+        Alert.alert(e.message);
+      } else {
+        Alert.alert('Something went wrong');
+      }
+    }
+  };
 
   return (
     <AppContainer>

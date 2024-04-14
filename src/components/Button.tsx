@@ -1,10 +1,9 @@
 import React from 'react';
 import {styled} from 'styled-components/native';
 import {TypeTheme} from '../types';
-import type {GestureResponderEvent} from 'react-native';
 
 type Props = {
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: () => void;
   text: string;
 };
 
