@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {TextInput} from 'react-native';
 import {Controller} from 'react-hook-form';
+import {styled} from 'styled-components/native';
+import {TypeTheme} from '../types';
 
 export const Input = ({control, name, placeholder, secureTextEntry}: any) => {
   return (
@@ -10,7 +12,7 @@ export const Input = ({control, name, placeholder, secureTextEntry}: any) => {
       render={({field: {value, onChange, onBlur}}) => {
         return (
           <>
-            <View style={styles.container}>
+            <StyledInputWrapper>
               <TextInput
                 value={value}
                 onChangeText={textVal => onChange(textVal)}
@@ -18,7 +20,7 @@ export const Input = ({control, name, placeholder, secureTextEntry}: any) => {
                 placeholder={placeholder}
                 secureTextEntry={secureTextEntry}
               />
-            </View>
+            </StyledInputWrapper>
           </>
         );
       }}
@@ -26,17 +28,12 @@ export const Input = ({control, name, placeholder, secureTextEntry}: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    width: '100%',
-
-    borderColor: '#e8e8e8',
-    borderWidth: 1,
-    borderRadius: 5,
-
-    paddingHorizontal: 10,
-    marginVertical: 5,
-  },
-  input: {},
-});
+const StyledInputWrapper = styled.View<TypeTheme>`
+  background-color: #fff;
+  width: 100%;
+  border-color: ${props => props.theme.colors.black};
+  border-width: 2;
+  border-radius: 0;
+  padding-horizontal: ${props => props.theme.dimensions.vw(2)};
+  margin-vertical: ${props => props.theme.dimensions.vh(1)};
+`;

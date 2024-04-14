@@ -4,7 +4,9 @@ import {TypeTheme} from '../types';
 
 export const Button = ({onPress, text}: any) => {
   return (
-    <StyledButton onPress={onPress}>
+    <StyledButton
+      onPress={onPress}
+      style={({pressed}) => [pressed ? {opacity: 0.9} : {}]}>
       <StyledText>{text}</StyledText>
     </StyledButton>
   );

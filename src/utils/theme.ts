@@ -1,4 +1,4 @@
-import {rem, vw} from './units';
+import {rem, vw, vh} from './units';
 
 export const theme = {
   theme: {
@@ -11,6 +11,7 @@ export const theme = {
     },
     dimensions: {
       vw,
+      vh,
     },
   },
 } as const;
