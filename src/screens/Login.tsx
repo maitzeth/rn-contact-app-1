@@ -2,18 +2,16 @@ import * as React from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackParamList} from '../types';
 import {Button, Input, AppContainer} from '../components';
-// ScreenComponentType<ParamListBase, "Login"> | undefined
-
+import {EMAIL_REGEX} from '../utils/constants';
 import {useForm} from 'react-hook-form';
 
 type LoginScreenProps = NativeStackScreenProps<StackParamList, 'LoginScreen'>;
-// interface Props extends NativeStackHeaderProps {}
 
 export function LoginScreen({navigation}: LoginScreenProps) {
   const {control, handleSubmit} = useForm();
 
   const onSignIn = (data: any) => {
-    console.log(data);
+    console.log(data, navigation);
     console.log('its happening... everybody stay f.. calm!');
   };
 
@@ -25,11 +23,23 @@ export function LoginScreen({navigation}: LoginScreenProps) {
 
   return (
     <AppContainer>
-      <Input name="email" control={control} placeholder="Enter your email" />
+      <Input
+        name="email"
+        control={control}
+        placeholder="Enter your email"
+        rules={{
+          required: 'Email is required',
+          pattern: {
+            value: EMAIL_REGEX,
+            message: 'Invalid email address',
+          },
+        }}
+      />
       <Input
         name="password"
         control={control}
         placeholder="Enter your password"
+        rules={{required: 'Password is required'}}
         secureTextEntry
       />
       <Button text="Log In" onPress={handleSubmit(onSignIn)} />

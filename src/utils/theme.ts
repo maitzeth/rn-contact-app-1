@@ -5,6 +5,7 @@ export const theme = {
     colors: {
       black: '#0f0f0f',
       white: '#ecf0f1',
+      red: '#e74c3c',
     },
     units: {
       rem,
