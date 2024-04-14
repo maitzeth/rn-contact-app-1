@@ -1,35 +1,36 @@
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import * as React from 'react';
 import type {FieldElement} from 'react-hook-form';
 import {useForm} from 'react-hook-form';
 import {Alert} from 'react-native';
 import {styled} from 'styled-components/native';
 import {AppContainer, Button, Input} from '../components';
-import {StackParamList, TypeTheme} from '../types';
-import {EMAIL_REGEX} from '../utils/constants';
 import {useAuthState} from '../store/userStore';
-
-type LoginScreenProps = NativeStackScreenProps<StackParamList, 'LoginScreen'>;
+import {TypeTheme} from '../types';
+import {EMAIL_REGEX} from '../utils/constants';
 
 type SignInData = {
   email: string;
   password: string;
 };
 
-export function LoginScreen({}: LoginScreenProps) {
+export function LoginScreen() {
+  const [loading, setLoading] = React.useState(false);
   const {control, handleSubmit} = useForm();
   const {signIn} = useAuthState();
 
   const onSignIn = async (data: FieldElement) => {
+    setLoading(true);
+
     const {email, password} = data as SignInData;
     try {
-      signIn({
+      await signIn({
         email,
         password,
       });
 
-      // navigation.navigate('HomeScreen');
+      setLoading(false);
     } catch (e) {
+      setLoading(false);
       if (e instanceof Error) {
         Alert.alert(e.message);
       } else {
@@ -68,7 +69,12 @@ export function LoginScreen({}: LoginScreenProps) {
           secureTextEntry
         />
         <ButtonWrapper>
-          <Button text="Log In" onPress={handleSubmit(onSignIn)} />
+          <Button
+            text="Log In"
+            loading={loading}
+            onPress={handleSubmit(onSignIn)}
+            disabled={loading}
+          />
         </ButtonWrapper>
       </Inner>
     </AppContainer>

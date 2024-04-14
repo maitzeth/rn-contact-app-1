@@ -11,6 +11,7 @@ type Props = {
   placeholder: string;
   secureTextEntry?: boolean;
   rules: UseControllerProps['rules'];
+  disabled?: boolean;
 };
 
 export const Input = ({
@@ -19,6 +20,7 @@ export const Input = ({
   placeholder,
   secureTextEntry,
   rules = {},
+  disabled,
 }: Props) => {
   return (
     <Controller
@@ -30,6 +32,7 @@ export const Input = ({
           <>
             <StyledInputWrapper $error={Boolean(error)}>
               <TextInput
+                editable={!disabled}
                 value={value}
                 onChangeText={textVal => onChange(textVal)}
                 onBlur={onBlur}

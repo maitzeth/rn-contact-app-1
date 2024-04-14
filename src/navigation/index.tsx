@@ -5,8 +5,9 @@ import {LoginScreen} from '../screens/Login';
 import {StackParamList} from '../types';
 import {HomeScreen} from '../screens/Home';
 import {DetailsScreen} from '../screens/Details';
-import {View, ActivityIndicator} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {useAuthState} from '../store/userStore';
+import {styled} from 'styled-components/native';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -28,10 +29,9 @@ export const Navigation = () => {
 
   if (user === undefined) {
     return (
-      // eslint-disable-next-line react-native/no-inline-styles
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <StyledActivity>
         <ActivityIndicator />
-      </View>
+      </StyledActivity>
     );
   }
 
@@ -65,3 +65,9 @@ export const Navigation = () => {
     </NavigationContainer>
   );
 };
+
+const StyledActivity = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

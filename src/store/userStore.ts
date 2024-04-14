@@ -25,7 +25,7 @@ type AuthData = {
 
 interface AuthState {
   user: User | undefined | null;
-  signIn: (data: AuthData) => void;
+  signIn: (data: AuthData) => Promise<void>;
   checkAuth: () => Promise<User | null>;
   setUser: (data: User | null) => void;
   logout: () => Promise<void>;

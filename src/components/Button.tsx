@@ -5,14 +5,17 @@ import {TypeTheme} from '../types';
 type Props = {
   onPress: () => void;
   text: string;
+  disabled?: boolean;
+  loading?: boolean;
 };
 
-export const Button = ({onPress, text}: Props) => {
+export const Button = ({onPress, text, disabled, loading}: Props) => {
   return (
     <StyledButton
+      disabled={disabled}
       onPress={onPress}
       style={({pressed}) => [pressed ? {opacity: 0.9} : {}]}>
-      <StyledText>{text}</StyledText>
+      <StyledText>{loading ? 'Loading...' : text}</StyledText>
     </StyledButton>
   );
 };
