@@ -10,5 +10,5 @@ export type StackParamList = {
 
 export type User = {
   email: string;
-  fullName: string;
+  firstName: string;
 };

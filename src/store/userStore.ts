@@ -31,7 +31,7 @@ interface AuthState {
   logout: () => Promise<void>;
 }
 
-const fakerator = Fakerator('es-ES');
+const fakerator = Fakerator('en-EN');
 
 export const useAuthState = create<AuthState>(set => ({
   user: undefined,
@@ -39,7 +39,7 @@ export const useAuthState = create<AuthState>(set => ({
     await sleep(750);
 
     const authData = {
-      fullName: fakerator.names.name(),
+      firstName: fakerator.names.firstName(),
       email: data.email,
     };
 
