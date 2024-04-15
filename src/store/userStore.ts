@@ -3,17 +3,6 @@ import Fakerator from 'fakerator';
 import {User} from '../types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// checkAuth: () =>
-//   set(state => {
-//     console.log(state);
-//     return state;
-//   }),
-// logout: () =>
-//   set(state => {
-//     console.log(state);
-//     return state;
-//   }),
-
 // Simulation of a network request
 export const sleep = (ms: number) =>
   new Promise(resolve => setTimeout(resolve, ms));
@@ -26,12 +15,11 @@ type AuthData = {
 interface AuthState {
   user: User | undefined | null;
   signIn: (data: AuthData) => Promise<void>;
-  checkAuth: () => Promise<User | null>;
-  setUser: (data: User | null) => void;
+  checkAuth: () => Promise<boolean>;
   logout: () => Promise<void>;
 }
 
-const fakerator = Fakerator('en-EN');
+const fakerator = Fakerator();
 
 export const useAuthState = create<AuthState>(set => ({
   user: undefined,
@@ -52,23 +40,25 @@ export const useAuthState = create<AuthState>(set => ({
       };
     });
   },
-  setUser: user => {
-    set(state => {
-      return {
-        ...state,
-        user,
-      };
-    });
-  },
   checkAuth: async () => {
     await sleep(750);
 
     const data = await AsyncStorage.getItem('auth');
+
     if (data) {
-      return JSON.parse(data) as User;
-    } else {
-      return null;
+      const parsedData = JSON.parse(data);
+
+      set(state => {
+        return {
+          ...state,
+          user: parsedData ? parsedData : undefined,
+        };
+      });
+
+      return true;
     }
+
+    return false;
   },
   logout: async () => {
     await sleep(750);

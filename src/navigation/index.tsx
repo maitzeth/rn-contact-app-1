@@ -12,22 +12,21 @@ import {styled} from 'styled-components/native';
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Navigation = () => {
-  const {user, checkAuth, setUser} = useAuthState();
+  const [isLoading, setLoading] = React.useState(false);
+  const {user, checkAuth} = useAuthState();
 
   const checkUser = React.useCallback(async () => {
-    try {
-      const authResponse = await checkAuth();
-      setUser(authResponse);
-    } catch (e) {
-      setUser(null);
-    }
-  }, [checkAuth, setUser]);
+    setLoading(true);
+    const response = await checkAuth();
+    console.log('checkAuth', response);
+    setLoading(false);
+  }, [checkAuth]);
 
   React.useEffect(() => {
     checkUser();
-  }, [checkUser, user]);
+  }, [checkUser]);
 
-  if (user === undefined) {
+  if (isLoading) {
     return (
       <StyledActivity>
         <ActivityIndicator />
