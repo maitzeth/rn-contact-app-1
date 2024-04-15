@@ -17,8 +17,7 @@ export const Navigation = () => {
 
   const checkUser = React.useCallback(async () => {
     setLoading(true);
-    const response = await checkAuth();
-    console.log('checkAuth', response);
+    await checkAuth();
     setLoading(false);
   }, [checkAuth]);
 

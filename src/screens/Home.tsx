@@ -3,19 +3,27 @@ import {FlatList} from 'react-native';
 import {Button, AppContainer, ContactItem} from '../components';
 import {useAuthState} from '../store/userStore';
 import {styled} from 'styled-components/native';
-import {TypeTheme} from '../types';
+import {TypeTheme, StackParamList} from '../types';
+import contacts from '../data.json';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-export function HomeScreen() {
+type HomeScreenProps = NativeStackScreenProps<StackParamList, 'HomeScreen'>;
+
+export function HomeScreen({navigation}: HomeScreenProps) {
   const [loading, setLoading] = React.useState(false);
   const {logout, user} = useAuthState();
 
-  const handlePress = async () => {
+  const handleLogout = async () => {
     setLoading(true);
     await logout();
     setLoading(false);
   };
 
-  console.log('zz');
+  const handlePress = (id: string) => {
+    navigation.navigate('DetailsScreen', {
+      itemId: id,
+    });
+  };
 
   return (
     <>
@@ -27,18 +35,24 @@ export function HomeScreen() {
           </StyledHeader>
         </Inner>
       </AppContainer>
-      {/* <FlatList
+      <FlatList
         data={contacts}
-        renderItem={() => {
-          return <ContactItem />;
+        renderItem={({item}) => {
+          return (
+            <ContactItem
+              name={item.name}
+              phone={item.phone}
+              handlePress={() => handlePress(item.id)}
+            />
+          );
         }}
         keyExtractor={item => item.id}
-      /> */}
+      />
       <AppContainer>
         <Button
           text="Logout"
           loading={loading}
-          onPress={handlePress}
+          onPress={handleLogout}
           disabled={loading}
         />
       </AppContainer>
