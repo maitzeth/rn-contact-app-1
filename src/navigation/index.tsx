@@ -8,6 +8,7 @@ import {DetailsScreen} from '../screens/Details';
 import {ActivityIndicator} from 'react-native';
 import {useAuthState} from '../store/userStore';
 import {styled} from 'styled-components/native';
+import {theme} from '../utils/theme';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -28,7 +29,7 @@ export const Navigation = () => {
   if (isLoading) {
     return (
       <StyledActivity>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color={theme.theme.colors.black} />
       </StyledActivity>
     );
   }
@@ -39,7 +40,7 @@ export const Navigation = () => {
         {user ? (
           <React.Fragment>
             <Stack.Screen
-              name="HomeScreen"
+              name="Home"
               component={HomeScreen}
               options={{
                 title: 'Home',
@@ -47,14 +48,14 @@ export const Navigation = () => {
               }}
             />
             <Stack.Screen
-              name="DetailsScreen"
+              name="Details"
               component={DetailsScreen}
               options={{title: 'Details'}}
             />
           </React.Fragment>
         ) : (
           <Stack.Screen
-            name="LoginScreen"
+            name="Login"
             component={LoginScreen}
             options={{headerShown: false}}
           />

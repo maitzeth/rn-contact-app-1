@@ -4,12 +4,17 @@ import {Button, AppContainer, ContactItem} from '../components';
 import {useAuthState} from '../store/userStore';
 import {styled} from 'styled-components/native';
 import {TypeTheme, StackParamList} from '../types';
+import {useNavigation} from '@react-navigation/native';
 import contacts from '../data.json';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-type HomeScreenProps = NativeStackScreenProps<StackParamList, 'HomeScreen'>;
+type HomeScreenNavigationProps = NativeStackNavigationProp<
+  StackParamList,
+  'Home'
+>;
 
-export function HomeScreen({navigation}: HomeScreenProps) {
+export function HomeScreen() {
+  const navigation = useNavigation<HomeScreenNavigationProps>();
   const [loading, setLoading] = React.useState(false);
   const {logout, user} = useAuthState();
 
@@ -20,7 +25,7 @@ export function HomeScreen({navigation}: HomeScreenProps) {
   };
 
   const handlePress = (id: string) => {
-    navigation.navigate('DetailsScreen', {
+    navigation.navigate('Details', {
       itemId: id,
     });
   };

@@ -1,16 +1,18 @@
 import * as React from 'react';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {StackParamList, TypeTheme} from '../types';
 import contacts from '../data.json';
 import styled from 'styled-components/native';
 import {AppContainer} from '../components';
+import type {RouteProp} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 
 const mapById = new Map(contacts.map(item => [item.id, item]));
 
-type DetailsScreenProps = NativeStackScreenProps<StackParamList, 'HomeScreen'>;
+type DetailsScreenRouteProps = RouteProp<StackParamList, 'Details'>;
 
-export function DetailsScreen({route}: DetailsScreenProps) {
-  const {itemId} = route.params as {itemId: string};
+export function DetailsScreen() {
+  const route = useRoute<DetailsScreenRouteProps>();
+  const {itemId} = route.params;
   const contactDetails = mapById.get(itemId);
 
   return (
